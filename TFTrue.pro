@@ -26,7 +26,7 @@ unix {
                 -fvisibility=hidden -fvisibility-inlines-hidden \
                 -fno-strict-aliasing -Wno-delete-non-virtual-dtor -Wno-unused -Wno-reorder \
                 -Wno-overloaded-virtual -Wno-unknown-pragmas -Wno-invalid-offsetof -Wno-sign-compare \
-                -std=c++11 -Dtypeof=decltype -Wno-class-memaccess -fpermissive
+                -std=c++11 -Dtypeof=decltype -Wno-class-memaccess -fpermissive -lm
         QMAKE_CXXFLAGS_RELEASE = -O3 -flto
         QMAKE_CXXFLAGS_DEBUG = -g3
         QMAKE_CXXFLAGS_SHLIB = # remove -fPIC
@@ -37,11 +37,11 @@ unix {
         QMAKE_LFLAGS_RELEASE = -s -flto
 
         LIBS += \
-                $$PWD/source-sdk-2013/mp/src/lib/public/linux32/tier1.a \
-                $$PWD/source-sdk-2013/mp/src/lib/public/linux32/mathlib.a \
+                $$PWD/hl2sdk/lib/public/linux32/tier1.a \
+                $$PWD/hl2sdk/lib/public/linux32/mathlib.a \
                 $$PWD/ModuleScanner/ModuleScanner.a \
                 $$PWD/FunctionRoute/FunctionRoute.a \
-                -L$$PWD/source-sdk-2013/mp/src/lib/public/linux32/ -lsteam_api \
+                -L$$PWD/hl2sdk/lib/public/linux32/ -lsteam_api \
                 -L$$PWD/bin/ -ltier0_srv -lvstdlib_srv
 }
 
@@ -67,13 +67,13 @@ win32 {
         QMAKE_INCDIR += $$PWD
 
         LIBS += \
-                $$PWD/source-sdk-2013/mp/src/lib/public/tier0.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/tier1.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/tier2.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/tier3.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/mathlib.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/steam_api.lib \
-                $$PWD/source-sdk-2013/mp/src/lib/public/vstdlib.lib \
+                $$PWD/hl2sdk/lib/public/tier0.lib \
+                $$PWD/hl2sdk/lib/public/tier1.lib \
+                $$PWD/hl2sdk/lib/public/tier2.lib \
+                $$PWD/hl2sdk/lib/public/tier3.lib \
+                $$PWD/hl2sdk/lib/public/mathlib.lib \
+                $$PWD/hl2sdk/lib/public/steam_api.lib \
+                $$PWD/hl2sdk/lib/public/vstdlib.lib \
                 $$PWD/ModuleScanner/ModuleScanner.lib \
                 $$PWD/FunctionRoute/FunctionRoute.lib \
                 legacy_stdio_definitions.lib
@@ -112,11 +112,11 @@ HEADERS += \
     tournament.h \
     editablecommands.h
 
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/common
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/public
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/public/tier0
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/public/tier1
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/game/shared
-QMAKE_INCDIR += $$PWD/source-sdk-2013/mp/src/game/server
+QMAKE_INCDIR += $$PWD/hl2sdk/common
+QMAKE_INCDIR += $$PWD/hl2sdk/public
+QMAKE_INCDIR += $$PWD/hl2sdk/public/tier0
+QMAKE_INCDIR += $$PWD/hl2sdk/public/tier1
+QMAKE_INCDIR += $$PWD/hl2sdk/game/shared
+QMAKE_INCDIR += $$PWD/hl2sdk/game/server
 QMAKE_INCDIR += ./FunctionRoute
 QMAKE_INCDIR += ./ModuleScanner
