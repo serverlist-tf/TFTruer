@@ -936,12 +936,15 @@ void CLogs::Event_PlayerDamage( void *pTFGameStats, EDX CBasePlayer *pPlayer, co
 
 					CTraceFilterWorldOnly traceFilter;
 
-					g_pEngineTrace->TraceRay(pRay, CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_MONSTER|CONTENTS_WINDOW|CONTENTS_HITBOX|CONTENTS_GRATE, &traceFilter, &trace);
+					g_pEngineTrace->TraceRay(pRay, CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_PLAYERCLIP|CONTENTS_WINDOW|CONTENTS_MONSTER|CONTENTS_GRATE, &traceFilter, &trace);
 
 					if(trace.DidHit())
 					{
 						if(vAimerOrigin.DistTo(trace.endpos) >= 170.0)
+						{
 							V_strncpy(szAirshot, " (airshot \"1\")", sizeof(szAirshot));
+							printf("was airshot");
+						}
 					}
 				}
 			}
