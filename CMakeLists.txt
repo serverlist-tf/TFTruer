@@ -126,9 +126,6 @@ if(WIN32)
         _WIN32
     )
 
-    set_property(TARGET TFTrue PROPERTY
-             MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-
     target_link_libraries(TFTrue PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/FunctionRoute/FunctionRoute.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/ModuleScanner/ModuleScanner.lib
