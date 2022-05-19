@@ -40,7 +40,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: D:\a\TFTruer\TFTruer\build\Release\tftruer.dll
+        file: D:\a\TFTruer\TFTruer\build\RelWithDebInfo\tftruer.dll
         asset_name: tftruer.dll
         tag: ${{ github.ref }}
         overwrite: true
