@@ -41,14 +41,14 @@ EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CTFTrue, IServerPluginCallbacks, INTERFACEVERS
 
 ConVar tftrue_version("tftrue_version", "4.90b", FCVAR_NOTIFY|FCVAR_CHEAT,
 	"Version of the plugin.",
-    &CTFTrue::Version_Callback);
+        &CTFTrue::Version_Callback);
 ConVar tftrue_gamedesc("tftrue_gamedesc", "", FCVAR_NONE,
 	"Set the description you want to show in the game description column of the server browser. Max 40 characters.",
-    &CTFTrue::GameDesc_Callback);
+        &CTFTrue::GameDesc_Callback);
 ConVar tftrue_freezecam("tftrue_freezecam", "1", FCVAR_NOTIFY,
 	"Activate/Deactivate the freeze cam.",
-	true, 0, true, 1,
-	&CTFTrue::Freezecam_Callback);
+        true, 0, true, 1,
+        &CTFTrue::Freezecam_Callback);
 
 IVEngineServer *engine                  = nullptr;
 IPlayerInfoManager *playerinfomanager   = nullptr;
@@ -303,7 +303,27 @@ void CTFTrue::GameFrame( bool simulating )
 
 PLUGIN_RESULT CTFTrue::ClientCommand( edict_t *pEntity, const CCommand &args )
 {
+	if (!pEntity)
+	{
+		return PLUGIN_CONTINUE;
+	}
+	int icl = IndexOfEdict(pEntity);
+	if (!icl)
+	{
+		return PLUGIN_CONTINUE;
+	}
+
+	IClient* pClient = g_pServer->GetClient(icl-1);
+	if (!pClient || !pClient->IsActive())
+	{
+		return PLUGIN_CONTINUE;
+	}
+
 	const char *cmd = args.Arg(0);
+	if (!cmd || strlen(cmd) < 1)
+	{
+		return PLUGIN_CONTINUE;
+	}
 
 	if( Q_stricmp(cmd, "tftrue") == 0 )
 	{
