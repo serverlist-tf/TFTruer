@@ -112,8 +112,8 @@ if(UNIX)
         -m32
         -Wl,--no-gnu-unique
         -fuse-ld=gold
-        # -static-libstdc++
-        # -static-libgcc
+        -static-libstdc++
+        -static-libgcc
         -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/version-script
         -flto
     )

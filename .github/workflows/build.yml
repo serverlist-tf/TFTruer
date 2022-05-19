@@ -40,13 +40,13 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: D:\a\TFTrue\TFTrue\build\Release\TFTrue.dll
-        asset_name: TFTrue.dll
+        file: D:\a\TFTrue\TFTrue\build\Release\tftruer.dll
+        asset_name: tftruer.dll
         tag: ${{ github.ref }}
         overwrite: true
 
     - name: copy Binary
-      run: cp D:\a\TFTrue\TFTrue\build\Release\TFTrue.dll D:\a\TFTrue\TFTrue\release\TFTrue.dll
+      run: cp D:\a\TFTrue\TFTrue\build\Release\tftruer.dll D:\a\TFTrue\TFTrue\release\tftruer.dll
 
     - name: Commit files
       run: |
@@ -64,7 +64,7 @@ jobs:
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - name: Checkout repository and submodules
@@ -89,13 +89,13 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: /home/runner/work/TFTrue/TFTrue/build/TFTrue.so
-        asset_name: TFTrue.so
+        file: /home/runner/work/TFTrue/TFTrue/build/tftruer.so
+        asset_name: tftruer.so
         tag: ${{ github.ref }}
         overwrite: true
 
     - name: copy Binary
-      run: cp /home/runner/work/TFTrue/TFTrue/build/TFTrue.so /home/runner/work/TFTrue/TFTrue/release/TFTrue.so -vf
+      run: cp /home/runner/work/TFTrue/TFTrue/build/tftruer.so /home/runner/work/TFTrue/TFTrue/release/tftruer.so -vf
 
     - name: Commit files
       run: |
