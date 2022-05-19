@@ -101,6 +101,9 @@ if(UNIX)
         -D_stricmp=strcasecmp
         -D_snprintf=snprintf
         -D_vsnprintf=vsnprintf
+        # duh
+        -O3
+        -flto
     )
 
     target_link_options(TFTrue PUBLIC
@@ -112,19 +115,9 @@ if(UNIX)
         # -static-libstdc++
         # -static-libgcc
         -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/version-script
+        -flto
     )
 
-    if(CMAKE_BUILD_TYPE STREQUAL Release)
-        target_compile_options(TFTrue PUBLIC
-            -O3
-            -flto
-        )
-
-        target_link_options(TFTrue PUBLIC
-            -s
-            -flto
-        )
-    endif()
 endif()
 
 if(WIN32)

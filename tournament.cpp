@@ -352,56 +352,58 @@ void CTournament::SetTournamentMapVars()
 {
 	switch(tftrue_tournament_config.GetInt())
 	{
-	case CONFIG_ETF2L6v6:
-	{
-		switch(eMapType)
+		case CONFIG_ETF2L6v6:
 		{
-		case MAPTYPE_ATTACKDEFENSE:
-			engine->InsertServerCommand("exec etf2l_6v6_stopwatch\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_CP:
-			engine->InsertServerCommand("exec etf2l_6v6_5cp\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_CTF:
-			engine->InsertServerCommand("exec etf2l_6v6_ctf\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_ARENA:
-			engine->InsertServerCommand("exec etf2l_6v6_koth\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_MVM:
+			switch(eMapType)
+			{
+				case MAPTYPE_ATTACKDEFENSE:
+					engine->InsertServerCommand("exec etf2l_6v6_stopwatch\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_CP:
+					engine->InsertServerCommand("exec etf2l_6v6_5cp\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_CTF:
+					engine->InsertServerCommand("exec etf2l_6v6_ctf\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_ARENA:
+					engine->InsertServerCommand("exec etf2l_6v6_koth\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_MVM:
+				case MAPTYPE_UNKNOWN:
+					break;
+			}
 			break;
 		}
-		break;
-	}
-	case CONFIG_ETF2L9v9:
-	{
-		switch(eMapType)
+		case CONFIG_ETF2L9v9:
 		{
-		case MAPTYPE_ATTACKDEFENSE:
-			engine->InsertServerCommand("exec etf2l_9v9_stopwatch\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_CP:
-			engine->InsertServerCommand("exec etf2l_9v9_5cp\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_CTF:
-			engine->InsertServerCommand("exec etf2l_9v9_ctf\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_ARENA:
-			engine->InsertServerCommand("exec etf2l_9v9_koth\n");
-			engine->ServerExecute();
-			break;
-		case MAPTYPE_MVM:
+			switch(eMapType)
+			{
+				case MAPTYPE_ATTACKDEFENSE:
+					engine->InsertServerCommand("exec etf2l_9v9_stopwatch\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_CP:
+					engine->InsertServerCommand("exec etf2l_9v9_5cp\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_CTF:
+					engine->InsertServerCommand("exec etf2l_9v9_ctf\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_ARENA:
+					engine->InsertServerCommand("exec etf2l_9v9_koth\n");
+					engine->ServerExecute();
+					break;
+				case MAPTYPE_MVM:
+				case MAPTYPE_UNKNOWN:
+					break;
+			}
 			break;
 		}
-		break;
-	}
 	}
 }
 

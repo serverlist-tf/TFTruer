@@ -182,17 +182,27 @@ void CLogs::UpdateLogState()
 {
 	switch(m_iLogState)
 	{
-	case STATE_CREATENEW:
-		engine->InsertServerCommand("log on\n");
-		engine->ServerExecute();
-		m_iLogState = STATE_NONE;
-		break;
-	case STATE_FLUSH:
-		FileHandle_t log = g_Log->m_hLogFile;
-		if(log != FILESYSTEM_INVALID_HANDLE)
-			filesystem->Flush(log);
-		m_iLogState = STATE_NONE;
-		break;
+		case STATE_CREATENEW:
+		{
+			engine->InsertServerCommand("log on\n");
+			engine->ServerExecute();
+			m_iLogState = STATE_NONE;
+			break;
+		}
+		case STATE_FLUSH:
+		{
+			FileHandle_t log = g_Log->m_hLogFile;
+			if(log != FILESYSTEM_INVALID_HANDLE)
+			{
+				filesystem->Flush(log);
+			}
+			m_iLogState = STATE_NONE;
+			break;
+		}
+		case STATE_NONE:
+		{
+			break;
+		}
 	}
 }
 
@@ -213,7 +223,9 @@ void CLogs::OnDisconnect(edict_t *pEntity)
 					it = mapHealing[i].erase(it);
 				}
 				else
+				{
 					it++;
+				}
 			}
 		}
 	}
