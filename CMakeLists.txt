@@ -151,5 +151,6 @@ if(WIN32)
 
     target_link_options(tftruer PUBLIC
         -OPT:REF
+        -FORCE
     )
 endif()
