@@ -40,13 +40,13 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: D:\a\TFTrue\TFTrue\build\Release\tftruer.dll
+        file: D:\a\TFTruer\TFTruer\build\Release\tftruer.dll
         asset_name: tftruer.dll
         tag: ${{ github.ref }}
         overwrite: true
 
     - name: copy Binary
-      run: cp D:\a\TFTrue\TFTrue\build\Release\tftruer.dll D:\a\TFTrue\TFTrue\release\tftruer.dll
+      run: cp D:\a\TFTruer\TFTruer\build\Release\tftruer.dll D:\a\TFTruer\TFTruer\release\tftruer.dll
 
     - name: Commit files
       run: |
@@ -89,13 +89,13 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: /home/runner/work/TFTrue/TFTrue/build/tftruer.so
+        file: /home/runner/work/TFTruer/TFTruer/build/tftruer.so
         asset_name: tftruer.so
         tag: ${{ github.ref }}
         overwrite: true
 
     - name: copy Binary
-      run: cp /home/runner/work/TFTrue/TFTrue/build/tftruer.so /home/runner/work/TFTrue/TFTrue/release/tftruer.so -vf
+      run: cp /home/runner/work/TFTruer/TFTruer/build/tftruer.so /home/runner/work/TFTruer/TFTruer/release/tftruer.so -vf
 
     - name: Commit files
       run: |
