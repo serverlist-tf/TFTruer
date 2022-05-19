@@ -23,8 +23,6 @@
 #include "valve_minmax_off.h"
 #include "FunctionRoute.h"
 #include "ModuleScanner.h"
-#include <vector>
-#include <memory>
 
 class CLog
 {
@@ -56,6 +54,7 @@ public:
 	void LogAllHealing();
 	void LogHealing(int iHealer, int iPatient, int iAmount);
 	void LogUberchargeStatus();
+	void UpdateLogState();
 	float GetChargeLevel(CBasePlayer *pPlayer);
 	void ResetLastLogID() { m_iLastLogID = 0; }
 
@@ -119,16 +118,14 @@ private:
 
 	int m_iLastLogID = 0;
 
-	struct LogUploadRequest
+	enum eLogStates
 	{
-		CCallResult<CLogs, HTTPRequestCompleted_t> callResult;
-		HTTPRequestHandle handle;
-		bool roundEnd;
+		STATE_NONE = 0,
+		STATE_CREATENEW,
+		STATE_FLUSH
 	};
 
-	std::vector <std::unique_ptr<LogUploadRequest>> m_LogUploadRequests;
-
-	void UploadLogCallback(HTTPRequestCompleted_t *arg, bool bFailed);
+	eLogStates m_iLogState = STATE_NONE; // 0: Don't do anything, 1: Needs to create new log, 2: Needs to flush current log
 };
 
 extern CLogs g_Logs;
