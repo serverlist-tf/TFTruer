@@ -32,14 +32,14 @@
 #include "tournament.h"
 #include "editablecommands.h"
 
-#ifdef DEBUG
+// #ifdef DEBUG
 #define NO_AUTOUPDATE
-#endif
+// #endif
 
 CTFTrue g_Plugin;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CTFTrue, IServerPluginCallbacks, INTERFACEVERSION_ISERVERPLUGINCALLBACKS, g_Plugin )
 
-ConVar tftrue_version("tftrue_version", "4.86", FCVAR_NOTIFY|FCVAR_CHEAT,
+ConVar tftrue_version("tftrue_version", "4.90b", FCVAR_NOTIFY|FCVAR_CHEAT,
 	"Version of the plugin.",
     &CTFTrue::Version_Callback);
 ConVar tftrue_gamedesc("tftrue_gamedesc", "", FCVAR_NONE,

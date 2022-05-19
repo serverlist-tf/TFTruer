@@ -48,6 +48,8 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
     )
 endif()
 
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
+
 if(UNIX)
     target_compile_definitions(TFTrue PRIVATE
         GNUC
@@ -95,8 +97,8 @@ if(UNIX)
         -m32 
         -Wl,--no-gnu-unique 
         -fuse-ld=gold 
-        -static-libstdc++ 
-        -static-libgcc
+        # -static-libstdc++ 
+        # -static-libgcc
         -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/version-script
     )
     
