@@ -2,5 +2,5 @@ Debug/
 Release/
 build*
 Build/*
-build.sh
+# build.sh
 .vs/
