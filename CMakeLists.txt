@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
-project(TFTrue)
+project(tftruer)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_library(TFTrue SHARED
+add_library(tftruer SHARED
     AutoUpdater.cpp AutoUpdater.h
     MRecipient.cpp  MRecipient.h
     SDK.h
@@ -23,9 +23,9 @@ add_library(TFTrue SHARED
     tournament.cpp  tournament.h
     utils.cpp       utils.h
 )
-set_target_properties(TFTrue PROPERTIES PREFIX "")
+set_target_properties(tftruer PROPERTIES PREFIX "")
 
-target_include_directories(TFTrue PRIVATE
+target_include_directories(tftruer PRIVATE
 
     ${CMAKE_CURRENT_SOURCE_DIR}/hl2sdk-tf2/common
     ${CMAKE_CURRENT_SOURCE_DIR}/hl2sdk-tf2/public
@@ -39,13 +39,13 @@ target_include_directories(TFTrue PRIVATE
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    target_compile_definitions(TFTrue PUBLIC
+    target_compile_definitions(tftruer PUBLIC
         DEBUG
     )
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL Release)
-    target_compile_definitions(TFTrue PUBLIC
+    target_compile_definitions(tftruer PUBLIC
         NDEBUG
 
     )
@@ -54,7 +54,7 @@ endif()
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
 if(UNIX)
-    target_compile_definitions(TFTrue PRIVATE
+    target_compile_definitions(tftruer PRIVATE
         GNUC
         LINUX
         NO_MALLOC_OVERRIDE
@@ -65,7 +65,7 @@ if(UNIX)
         typeof=decltype
     )
 
-    target_link_libraries(TFTrue PUBLIC
+    target_link_libraries(tftruer PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/FunctionRoute/FunctionRoute.a
         ${CMAKE_CURRENT_SOURCE_DIR}/ModuleScanner/ModuleScanner.a
         ${CMAKE_CURRENT_SOURCE_DIR}/hl2sdk-tf2/lib/linux/mathlib_i486.a
@@ -75,7 +75,7 @@ if(UNIX)
         "-L${CMAKE_CURRENT_SOURCE_DIR}/hl2sdk-tf2/lib/linux/"   libvstdlib_srv.so
     )
 
-    target_compile_options(TFTrue PUBLIC
+    target_compile_options(tftruer PUBLIC
         -Wall
         -Wno-packed-not-aligned
         -Wno-class-memaccess
@@ -106,7 +106,7 @@ if(UNIX)
         -flto
     )
 
-    target_link_options(TFTrue PUBLIC
+    target_link_options(tftruer PUBLIC
         -zmuldefs
         -lrt
         -m32
@@ -121,7 +121,7 @@ if(UNIX)
 endif()
 
 if(WIN32)
-    target_compile_definitions(TFTrue PUBLIC
+    target_compile_definitions(tftruer PUBLIC
         RAD_TELEMETRY_DISABLED RAD_TELEMETRY_DISABLED
         VERSION_SAFE_STEAM_API_INTERFACES
         WIN32
@@ -133,10 +133,10 @@ if(WIN32)
         _WIN32
     )
 
-    set_property(TARGET TFTrue PROPERTY
+    set_property(TARGET tftruer PROPERTY
              MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
-    target_link_libraries(TFTrue PUBLIC
+    target_link_libraries(tftruer PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/FunctionRoute/FunctionRoute.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/ModuleScanner/ModuleScanner.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/hl2sdk-tf2/lib/public/mathlib.lib
@@ -149,7 +149,7 @@ if(WIN32)
         legacy_stdio_definitions.lib
     )
 
-    target_link_options(TFTrue PUBLIC
+    target_link_options(tftruer PUBLIC
         -OPT:REF
     )
 endif()
