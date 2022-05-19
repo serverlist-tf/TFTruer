@@ -33,12 +33,12 @@
 
 CAutoUpdater g_AutoUpdater;
 
-#define UPDATE_URL "https://api.github.com/repos/AnAkkk/TFTrue/releases/latest"
+#define UPDATE_URL "https://api.github.com/repos/sapphonie/tftruer/releases/latest"
 
 #ifndef _LINUX
-    #define DOWNLOAD_URL "https://raw.githubusercontent.com/AnAkkk/TFTrue/public/release/TFTrue.dll"
+    #define DOWNLOAD_URL "https://raw.githubusercontent.com/sapphonie/tftruer/public/release/TFTrue.dll"
 #else
-    #define DOWNLOAD_URL "https://raw.githubusercontent.com/AnAkkk/TFTrue/public/release/TFTrue.so"
+    #define DOWNLOAD_URL "https://raw.githubusercontent.com/sapphonie/tftruer/public/release/TFTrue.so"
 #endif
 
 void CAutoUpdater::Init()
@@ -93,11 +93,11 @@ void CAutoUpdater::OnGameFrame()
 
 void CAutoUpdater::DownloadUpdate(HTTPRequestCompleted_t *arg)
 {
-    Msg("[TFTrue] Updating...\n");
+    Msg("[TFTruer] Updating...\n");
 
     if(rename(m_strFilePath.c_str(), m_strBakFile.c_str()))
     {
-        Msg("[TFTrue] Error while renaming the binary\n");
+        Msg("[TFTruer] Error while renaming the binary\n");
         return;
     }
 
@@ -105,7 +105,7 @@ void CAutoUpdater::DownloadUpdate(HTTPRequestCompleted_t *arg)
 
     if(!m_fNewBin.is_open())
     {
-        Msg("[TFTrue] Failed to open the binary\n");
+        Msg("[TFTruer] Failed to open the binary\n");
         rename(m_strBakFile.c_str(), m_strFilePath.c_str());
         return;
     }
@@ -128,7 +128,7 @@ void CAutoUpdater::FinishUpdate()
 
     if(!IsModuleValid(m_strFilePath))
     {
-        Msg("[TFTrue] The new binary is corrupted!\n");
+        Msg("[TFTruer] The new binary is corrupted!\n");
         unlink(m_strFilePath.c_str());
         rename(m_strBakFile.c_str(), m_strFilePath.c_str());
         return;
@@ -152,11 +152,11 @@ void CAutoUpdater::FinishUpdate()
     // No plugin index, something is wrong
     if(iPluginIndex == -1)
     {
-        Msg("[TFTrue] Could not find plugin index to reload it\n");
+        Msg("[TFTruer] Could not find plugin index to reload it\n");
         return;
     }
 
-    Msg("[TFTrue] Reloading plugin due to update\n");
+    Msg("[TFTruer] Reloading plugin due to update\n");
 
     char szGameDir[1024];
     engine->GetGameDir(szGameDir, sizeof(szGameDir));
@@ -205,17 +205,17 @@ void CAutoUpdater::UpdateCallback(HTTPRequestCompleted_t *arg, bool bFailed)
             steam.SteamHTTP()->GetHTTPResponseBodyData(arg->m_hRequest, pResponse, size);
             pResponse[size] = '\0';
 
-            Msg("[TFTrue] The update data hasn't been received. HTTP error %d. Response: %s\n", arg->m_eStatusCode, pResponse);
+            Msg("[TFTruer] The update data hasn't been received. HTTP error %d. Response: %s\n", arg->m_eStatusCode, pResponse);
 
             delete[] pResponse;
         }
         else if(!arg->m_bRequestSuccessful)
         {
-            Msg("[TFTrue] The update data hasn't been received. No response from the server.\n");
+            Msg("[TFTruer] The update data hasn't been received. No response from the server.\n");
         }
         else
         {
-            Msg("[TFTrue] The update data hasn't been received. HTTP error %d\n", arg->m_eStatusCode);
+            Msg("[TFTruer] The update data hasn't been received. HTTP error %d\n", arg->m_eStatusCode);
         }
     }
     else if(arg->m_ulContextValue == CHECK_UPDATE)
@@ -236,7 +236,7 @@ void CAutoUpdater::UpdateCallback(HTTPRequestCompleted_t *arg, bool bFailed)
             bool parsingSuccessful = reader.parse(strResponse, root);
             if(!parsingSuccessful)
             {
-                Msg("[TFTrue] Failed to parse update info.\n");
+                Msg("[TFTruer] Failed to parse update info.\n");
             }
             else
             {
@@ -248,7 +248,7 @@ void CAutoUpdater::UpdateCallback(HTTPRequestCompleted_t *arg, bool bFailed)
                     float currentVersion = roundf(tftrue_version.GetFloat() * 100) / 100;
                     if(tagVersion <= currentVersion)
                     {
-                        Msg("[TFTrue] The plugin is up to date!\n");
+                        Msg("[TFTruer] The plugin is up to date!\n");
                     }
                     else
                     {
@@ -272,7 +272,7 @@ void CAutoUpdater::OnHTTPRequestDataReceived(HTTPRequestDataReceived_t *pParam)
 {
     if(!m_fNewBin.is_open())
     {
-        Msg("[TFTrue] Failed to open the new binary\n");
+        Msg("[TFTruer] Failed to open the new binary\n");
         return;
     }
 

@@ -129,12 +129,12 @@ void CSourceTV::Enable_Callback( IConVar *var, const char *pOldValue, float flOl
 	ConVar* v = (ConVar*)var;
 	if(v->GetBool() && !flOldValue)
 	{
-		AllMessage("\003[TFTrue] Source TV enabled! Changing map...\n");
+		AllMessage("\003[TFTruer] Source TV enabled! Changing map...\n");
 		g_Plugin.ForceReloadMap(gpGlobals->curtime+3.0f);
 	}
 	else if(!v->GetBool() && flOldValue)
 	{
-		AllMessage("\003[TFTrue] Source TV disabled!\n");
+		AllMessage("\003[TFTruer] Source TV disabled!\n");
 		engine->InsertServerCommand("tv_stop\n");
 		engine->ServerExecute();
 	}

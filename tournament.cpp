@@ -74,7 +74,7 @@ bool CTournament::Init(const CModuleScanner& EngineModule, const CModuleScanner&
 	if(!(mp_tournament.IsValid() && tf_gamemode_arena.IsValid() && tf_gamemode_cp.IsValid() && tf_gamemode_ctf.IsValid() && tf_gamemode_payload.IsValid() &&
 		 tf_gamemode_mvm.IsValid() && sv_pausable.IsValid() && mp_tournament_restart && sv_pure && status && pause_))
 	{
-		Warning("[TFTrue] Can't find tournament cvars\n");
+		Warning("[TFTruer] Can't find tournament cvars\n");
 		return false;
 	}
 
@@ -168,27 +168,27 @@ bool CTournament::Init(const CModuleScanner& EngineModule, const CModuleScanner&
 	}
 	else
 	{
-		Warning("[TFTrue] Couldn't get sig for pStartCompetitiveMatch! OS: %s\n", os);
+		Warning("[TFTruer] Couldn't get sig for pStartCompetitiveMatch! OS: %s\n", os);
 	}
 
 	if (!CanPlayerChooseClass)
 	{
-		Warning("[TFTrue] Couldn't get sig for CanPlayerChooseClass! OS: %s\n", os);
+		Warning("[TFTruer] Couldn't get sig for CanPlayerChooseClass! OS: %s\n", os);
 		return false;
 	}
 	if (!cmd_source)
 	{
-		Warning("[TFTrue] Couldn't get sig for cmd_source! OS: %s\n", os);
+		Warning("[TFTruer] Couldn't get sig for cmd_source! OS: %s\n", os);
 		return false;
 	}
 	if (!cmd_clientslot)
 	{
-		Warning("[TFTrue] Couldn't get sig for cmd_clientslot! OS: %s\n", os);
+		Warning("[TFTruer] Couldn't get sig for cmd_clientslot! OS: %s\n", os);
 		return false;
 	}
 	if (!g_sv_pure_mode)
 	{
-		Warning("[TFTrue] Couldn't get sig for g_sv_pure_mode! OS: %s\n", os);
+		Warning("[TFTruer] Couldn't get sig for g_sv_pure_mode! OS: %s\n", os);
 		return false;
 	}
 
@@ -276,13 +276,13 @@ void CTournament::StartCompetitiveMatch(void *pGameRules EDX2)
 
 	static ConVarRef sv_cheats("sv_cheats");
 	if(sv_cheats.GetBool())
-		AllMessage("\003[TFTrue] WARNING: Cheats are enabled !\n");
+		AllMessage("\003[TFTruer] WARNING: Cheats are enabled !\n");
 
 	if(*g_sv_pure_mode != 2)
-		AllMessage("\003[TFTrue] WARNING: The server is not correctly set up: sv_pure is not enabled!\n");
+		AllMessage("\003[TFTruer] WARNING: The server is not correctly set up: sv_pure is not enabled!\n");
 
 	if(g_Tournament.m_iConfigDownloadFailed)
-		AllMessage("\003[TFTrue] WARNING: The download of %d tournament config files failed! "
+		AllMessage("\003[TFTruer] WARNING: The download of %d tournament config files failed! "
 				   "The server might not be setup correctly.\n", g_Tournament.m_iConfigDownloadFailed);
 
 	g_Logs.OnTournamentStarted();
@@ -508,22 +508,22 @@ void CTournament::Pure_Callback(ConCommand *pCmd, EDX const CCommand &args)
 		if(mp_tournament.GetBool() && !tf_gamemode_mvm.GetBool())
 			sv_pure->m_nFlags |= FCVAR_DEVELOPMENTONLY;
 
-		AllMessage("\003[TFTrue] sv_pure changed to 2. Changing map...\n");
+		AllMessage("\003[TFTruer] sv_pure changed to 2. Changing map...\n");
 		g_Plugin.ForceReloadMap(gpGlobals->curtime+3.0f);
 	}
 	else if(iNewPureValue == 1 && iOldPureValue != 1)
 	{
-		AllMessage("\003[TFTrue] sv_pure changed to 1. Changing map...\n");
+		AllMessage("\003[TFTruer] sv_pure changed to 1. Changing map...\n");
 		g_Plugin.ForceReloadMap(gpGlobals->curtime+3.0f);
 	}
 	else if(iNewPureValue == 0 && iOldPureValue != 0)
 	{
-		AllMessage("\003[TFTrue] sv_pure changed to 0. Changing map...\n");
+		AllMessage("\003[TFTruer] sv_pure changed to 0. Changing map...\n");
 		g_Plugin.ForceReloadMap(gpGlobals->curtime+3.0f);
 	}
 	else if(iNewPureValue == -1 && iOldPureValue != -1)
 	{
-		AllMessage("\003[TFTrue] sv_pure changed to -1. Changing map...\n");
+		AllMessage("\003[TFTruer] sv_pure changed to -1. Changing map...\n");
 		g_Plugin.ForceReloadMap(gpGlobals->curtime+3.0f);
 	}
 }
@@ -609,7 +609,7 @@ void CTournament::Pause_Callback(ConCommand *pCmd, EDX const CCommand &args)
 		{
 			if(time(NULL) >= g_Tournament.m_tNextUnpauseAllowed)
 			{
-				AllMessage(icl, "\x05[TFTrue] The game was unpaused by \x03%s\x05.\n", pClient->GetClientName());
+				AllMessage(icl, "\x05[TFTruer] The game was unpaused by \x03%s\x05.\n", pClient->GetClientName());
 
 				// https://github.com/AnAkkk/TFTrue/issues/17#issuecomment-674427577
 				char msg[128];
@@ -649,7 +649,7 @@ void CTournament::Pause_Callback(ConCommand *pCmd, EDX const CCommand &args)
 		{
 			g_Tournament.m_tNextUnpauseAllowed   = time(NULL) + tftrue_unpause_delay.GetInt();
 			g_Tournament.m_tPauseStartTime       = std::chrono::high_resolution_clock::now();
-			AllMessage(icl, "\x05[TFTrue] The game was paused by \x03%s\x05.\n", pClient->GetClientName());
+			AllMessage(icl, "\x05[TFTruer] The game was paused by \x03%s\x05.\n", pClient->GetClientName());
 
 			// https://github.com/AnAkkk/TFTrue/issues/17#issuecomment-674427577
 			char msg[128];
@@ -722,17 +722,17 @@ void CTournament::DownloadConfigCallback(HTTPRequestCompleted_t *arg, bool bFail
 			steam.SteamHTTP()->GetHTTPResponseBodyData(arg->m_hRequest, pResponse, size);
 			pResponse[size] = '\0';
 
-			Msg("[TFTrue] The config hasn't been received. HTTP error %d. Response: %s\n", arg->m_eStatusCode, pResponse);
+			Msg("[TFTruer] The config hasn't been received. HTTP error %d. Response: %s\n", arg->m_eStatusCode, pResponse);
 
 			delete[] pResponse;
 		}
 		else if(!arg->m_bRequestSuccessful)
 		{
-			Msg("[TFTrue] The config hasn't been received. No response from the server.\n");
+			Msg("[TFTruer] The config hasn't been received. No response from the server.\n");
 		}
 		else
 		{
-			Msg("[TFTrue] The config hasn't been received. HTTP error %d\n", arg->m_eStatusCode);
+			Msg("[TFTruer] The config hasn't been received. HTTP error %d\n", arg->m_eStatusCode);
 		}
 
 		m_iConfigDownloadFailed++;
@@ -764,12 +764,12 @@ void CTournament::DownloadConfigCallback(HTTPRequestCompleted_t *arg, bool bFail
 			{
 				fwrite(pResponse, 1, size, pConfigFile);
 				fclose(pConfigFile);
-				Msg("[TFTrue] Successfully downloaded %s\n", currConfigDownloadRequest->get()->url.c_str());
+				Msg("[TFTruer] Successfully downloaded %s\n", currConfigDownloadRequest->get()->url.c_str());
 				remove(szBakFile);
 			}
 			else
 			{
-				Msg("[TFTrue] Failed to open %s\n", szFullPath);
+				Msg("[TFTruer] Failed to open %s\n", szFullPath);
 				rename(szBakFile, szFullPath);
 				m_iConfigDownloadFailed++;
 			}
@@ -778,7 +778,7 @@ void CTournament::DownloadConfigCallback(HTTPRequestCompleted_t *arg, bool bFail
 		}
 		else
 		{
-			Msg("[TFTrue] Received empty response for %s\n", currConfigDownloadRequest->get()->url.c_str());
+			Msg("[TFTruer] Received empty response for %s\n", currConfigDownloadRequest->get()->url.c_str());
 		}
 	}
 

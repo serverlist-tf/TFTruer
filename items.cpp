@@ -215,12 +215,12 @@ void CItems::TournamentWhitelistCallback(IConVar *var, const char *pOldValue, fl
 	// we're using tftrue_whitelist_id
 	if (strcmp(tftrue_whitelist_id.GetString(), "-1") != 0)
 	{
-		Msg("[TFTrue] tftrue_whitelist_id = %s! mp_tournament_whitelist updated, ignoring!\n", tftrue_whitelist_id.GetString());
+		Msg("[TFTruer] tftrue_whitelist_id = %s! mp_tournament_whitelist updated, ignoring!\n", tftrue_whitelist_id.GetString());
 	}
 	// we're not using tftrue whitelist id
 	else
 	{
-		Msg("[TFTrue] tftrue_whitelist_id = %s! mp_tournament_whitelist updated, reloading whitelist!\n", tftrue_whitelist_id.GetString());
+		Msg("[TFTruer] tftrue_whitelist_id = %s! mp_tournament_whitelist updated, reloading whitelist!\n", tftrue_whitelist_id.GetString());
 
 		static ConVarRef mp_tournament_whitelist("mp_tournament_whitelist");
 		V_strncpy(g_Items.szWhiteListChosen, mp_tournament_whitelist.GetString(), sizeof(g_Items.szWhiteListChosen));
@@ -239,14 +239,14 @@ void CItems::RebuildWhitelist(IConVar *var, const char *pOldValue, float flOldVa
 	// we're using tftrue_whitelist_id
 	if (strcmp(tftrue_whitelist_id.GetString(), "-1") != 0)
 	{
-		Msg("[TFTrue] -> Using tftrue_whitelist_id as tftrue_whitelist_id != -1...\n");
+		Msg("[TFTruer] -> Using tftrue_whitelist_id as tftrue_whitelist_id != -1...\n");
 
 		using_id = true;
 		ConVar* v = (ConVar*)var;
 
 		if (!(mptw->IsFlagSet( FCVAR_DEVELOPMENTONLY )))
 		{
-			Msg("[TFTrue] -> Setting mp_tournament_whitelist to FCVAR_DEVELOPMENTONLY...\n");
+			Msg("[TFTruer] -> Setting mp_tournament_whitelist to FCVAR_DEVELOPMENTONLY...\n");
 			mptw->m_nFlags |= FCVAR_DEVELOPMENTONLY;
 		}
 
@@ -260,7 +260,7 @@ void CItems::RebuildWhitelist(IConVar *var, const char *pOldValue, float flOldVa
 			// we didn't change, don't do extra work
 			if (strcmp(oldval, newval) == 0)
 			{
-				Msg("[TFTrue] Not redownloading whitelist, tftrue_whitelist_id didn't change and isn't -1!\n");
+				Msg("[TFTruer] Not redownloading whitelist, tftrue_whitelist_id didn't change and isn't -1!\n");
 				return;
 			}
 		}
@@ -317,12 +317,12 @@ void CItems::RebuildWhitelist(IConVar *var, const char *pOldValue, float flOldVa
 	// we're not using tftrue whitelist id
 	else
 	{
-		Msg("[TFTrue] -> Using mp_tournament_whitelist as tftrue_whitelist_id is unset...\n");
+		Msg("[TFTruer] -> Using mp_tournament_whitelist as tftrue_whitelist_id is unset...\n");
 
 		// unignore mp_tournament_whitelist
 		if (mptw->IsFlagSet( FCVAR_DEVELOPMENTONLY ))
 		{
-			Msg("[TFTrue] -> Reverting mp_tournament_whitelist...\n");
+			Msg("[TFTruer] -> Reverting mp_tournament_whitelist...\n");
 			mptw->m_nFlags &= ~FCVAR_DEVELOPMENTONLY;
 		}
 

@@ -39,7 +39,7 @@
 CTFTrue g_Plugin;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CTFTrue, IServerPluginCallbacks, INTERFACEVERSION_ISERVERPLUGINCALLBACKS, g_Plugin )
 
-ConVar tftrue_version("tftrue_version", "4.90b", FCVAR_NOTIFY|FCVAR_CHEAT,
+ConVar tftrue_version("tftrue_version", "5.00", FCVAR_NOTIFY|FCVAR_CHEAT,
 	"Version of the plugin.",
         &CTFTrue::Version_Callback);
 ConVar tftrue_gamedesc("tftrue_gamedesc", "", FCVAR_NONE,
@@ -152,7 +152,7 @@ bool CTFTrue::Load( CreateInterfaceFn interfaceFactory, CreateInterfaceFn gameSe
 			|| !g_pServer
 		)
 		{
-			Warning("[TFTrue] Can't load needed interfaces!\n");
+			Warning("[TFTruer] Can't load needed interfaces!\n");
 			return false;
 		}
 
@@ -253,7 +253,7 @@ bool CTFTrue::Load( CreateInterfaceFn interfaceFactory, CreateInterfaceFn gameSe
 	}
 	else
 	{
-		Msg("[TFTrue] The plugin is already loaded.\n");
+		Msg("[TFTruer] The plugin is already loaded.\n");
 		return false;
 	}
 }
@@ -303,7 +303,7 @@ void CTFTrue::Unload( void )
 char PluginDesc[50];
 const char *CTFTrue::GetPluginDescription( void )
 {
-	sprintf(PluginDesc, "TFTrue v%s, AnAkkk", tftrue_version.GetString());
+	sprintf(PluginDesc, "TFTruer v%s, sappho.io", tftrue_version.GetString());
 
 	return PluginDesc;
 }
@@ -412,7 +412,7 @@ void CTFTrue::ServerActivate( edict_t *pEdictList, int edictCount, int clientMax
 // This function will create an accurate game name for us
 void CTFTrue::UpdateGameDesc()
 {
-	V_snprintf(m_szGameDesc, sizeof(m_szGameDesc), "TFTrue %s ", tftrue_gamedesc.GetString());
+	V_snprintf(m_szGameDesc, sizeof(m_szGameDesc), "TFTruer %s ", tftrue_gamedesc.GetString());
 
 	if(steam.SteamGameServer())
 	{
@@ -512,9 +512,9 @@ void CTFTrue::Say_Callback(ConCommand *pCmd, EDX const CCommand &args)
 		Text = args.ArgS();
 	}
 
-	if(strcmp(Text, "!tftrue") == 0)
+	if (strcmp(Text, "!tftrue") == 0 || strcmp(Text, "!tftruer") == 0)
 	{
-		Message(g_Plugin.GetCommandIndex()+1, "\003TFTrue Version %s", tftrue_version.GetString() );
+		Message(g_Plugin.GetCommandIndex()+1, "\003TFTruer Version %s", tftrue_version.GetString() );
 		Message(g_Plugin.GetCommandIndex()+1, "\003Freeze Cam: \005%s",(tftrue_freezecam.GetBool() == true ) ? "On":"Off");
 
 		char szLine[255];

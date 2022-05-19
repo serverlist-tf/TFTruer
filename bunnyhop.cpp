@@ -65,7 +65,7 @@ bool CBunnyHop::Init(const CModuleScanner& ServerModule)
 void CBunnyHop::OnJoinClass(edict_t *pEntity)
 {
 	if(tftrue_bunnyhop.GetBool())
-		Message(IndexOfEdict(pEntity),"\003[TFTrue] Bunny hopping is enabled on this server. Type !speedmeter [on/off] to see your speed while bunny hopping.");
+		Message(IndexOfEdict(pEntity),"\003[TFTruer] Bunny hopping is enabled on this server. Type !speedmeter [on/off] to see your speed while bunny hopping.");
 }
 
 void CBunnyHop::OnPlayerDisconnect(edict_t *pEntity)

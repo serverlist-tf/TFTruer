@@ -1112,9 +1112,9 @@ void CLogs::Upload(bool bRoundEnd)
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if(sock == INVALID_SOCKET)
 	{
-		AllMessage("\003[TFTrue] Failed to create socket.\n");
-		Msg("[TFTrue] Failed to create socket.\n");
-		engine->LogPrint("[TFTrue] Failed to create socket.\n");
+		AllMessage("\003[TFTruer] Failed to create socket.\n");
+		Msg("[TFTruer] Failed to create socket.\n");
+		engine->LogPrint("[TFTruer] Failed to create socket.\n");
 		return;
 	}
 
@@ -1138,9 +1138,9 @@ void CLogs::Upload(bool bRoundEnd)
 
 	if(getaddrinfo("logs.tf", "80", nullptr, &result) != 0)
 	{
-		AllMessage("\003[TFTrue] Failed to resolve logs.tf\n");
-		Msg("[TFTrue] Failed to resolve logs.tf\n");
-		engine->LogPrint("[TFTrue] Failed to resolve logs.tf\n");
+		AllMessage("\003[TFTruer] Failed to resolve logs.tf\n");
+		Msg("[TFTruer] Failed to resolve logs.tf\n");
+		engine->LogPrint("[TFTruer] Failed to resolve logs.tf\n");
 		closesocket(sock);
 		return;
 	}
@@ -1192,9 +1192,9 @@ void CLogs::Upload(bool bRoundEnd)
 			else
 			{
 				char Line[255];
-				sprintf(Line, "\003[TFTrue] Failed to connect to logs.tf: %d\n", value);
+				sprintf(Line, "\003[TFTruer] Failed to connect to logs.tf: %d\n", value);
 				AllMessage(Line);
-				Msg("[TFTrue] Failed to connect to logs.tf: %d\n", value);
+				Msg("[TFTruer] Failed to connect to logs.tf: %d\n", value);
 				engine->LogPrint(Line+1);
 				closesocket(sock);
 				return;
@@ -1202,18 +1202,18 @@ void CLogs::Upload(bool bRoundEnd)
 		}
 		else
 		{
-			AllMessage("\003[TFTrue] Timed out while connecting to logs.tf\n");
-			Msg("[TFTrue] Timed out while connecting to logs.tf\n");
-			engine->LogPrint("[TFTrue] Timed out while connecting to logs.tf\n");
+			AllMessage("\003[TFTruer] Timed out while connecting to logs.tf\n");
+			Msg("[TFTruer] Timed out while connecting to logs.tf\n");
+			engine->LogPrint("[TFTruer] Timed out while connecting to logs.tf\n");
 			closesocket(sock);
 			return;
 		}
 	}
 	else
 	{
-		AllMessage("\003[TFTrue] Failed to connect to logs.tf\n");
-		Msg("[TFTrue] Failed to connect to logs.tf\n");
-		engine->LogPrint("[TFTrue] Failed to connect to logs.tf\n");
+		AllMessage("\003[TFTruer] Failed to connect to logs.tf\n");
+		Msg("[TFTruer] Failed to connect to logs.tf\n");
+		engine->LogPrint("[TFTruer] Failed to connect to logs.tf\n");
 		closesocket(sock);
 		return;
 	}
@@ -1221,14 +1221,14 @@ void CLogs::Upload(bool bRoundEnd)
 	// Calculate a boundary
 	char szBoundary[41];
 	RandomSeed(time(NULL));
-	V_snprintf(szBoundary, sizeof(szBoundary), "------------------TFTrue%08x%08x", RandomInt(0, INT_MAX), RandomInt(0, INT_MAX));
+	V_snprintf(szBoundary, sizeof(szBoundary), "------------------TFTruer%08x%08x", RandomInt(0, INT_MAX), RandomInt(0, INT_MAX));
 
 	FILE *logFile = fopen(m_szCurrentLogFileBackup, "rb");
 	if(!logFile)
 	{
-		AllMessage("\003[TFTrue] Failed to open the log file\n");
-		Msg("[TFTrue] Failed to open the log file\n");
-		engine->LogPrint("[TFTrue] Failed to open the log file\n");
+		AllMessage("\003[TFTruer] Failed to open the log file\n");
+		Msg("[TFTruer] Failed to open the log file\n");
+		engine->LogPrint("[TFTruer] Failed to open the log file\n");
 		closesocket(sock);
 		return;
 	}
@@ -1260,7 +1260,7 @@ void CLogs::Upload(bool bRoundEnd)
 	strContent.append("--").append(szBoundary).append("\r\nContent-Disposition: form-data; name=\"key\"\r\n\r\n").append(tftrue_logs_apikey.GetString()).append("\r\n");
 
 	// Add plugin name
-	strContent.append("--").append(szBoundary).append("\r\nContent-Disposition: form-data; name=\"uploader\"\r\n\r\nTFTrue v").append(tftrue_version.GetString()).append("\r\n");
+	strContent.append("--").append(szBoundary).append("\r\nContent-Disposition: form-data; name=\"uploader\"\r\n\r\nTFTruer v").append(tftrue_version.GetString()).append("\r\n");
 
 	// Add updatelog
 	if(m_iLastLogID != 0)
@@ -1285,9 +1285,9 @@ void CLogs::Upload(bool bRoundEnd)
 	//FILE *debugLog = fopen("packet.txt", "wb");
 	if(send(sock, strHeader.c_str(), strHeader.length(), 0) <= 0) // Send the header
 	{
-		AllMessage("\003[TFTrue] Failed to upload the log file, send error\n");
-		Msg("[TFTrue] Failed to upload the log file, send error\n");
-		engine->LogPrint("[TFTrue] Failed to upload the log file, send error\n");
+		AllMessage("\003[TFTruer] Failed to upload the log file, send error\n");
+		Msg("[TFTruer] Failed to upload the log file, send error\n");
+		engine->LogPrint("[TFTruer] Failed to upload the log file, send error\n");
 		closesocket(sock);
 		fclose(logFile);
 		return;
@@ -1296,9 +1296,9 @@ void CLogs::Upload(bool bRoundEnd)
 
 	if(send(sock, strContent.c_str(), strContent.length(), 0) <= 0) // Send the form data fields
 	{
-		AllMessage("\003[TFTrue] Failed to upload the log file, send error\n");
-		Msg("[TFTrue] Failed to upload the log file, send error\n");
-		engine->LogPrint("[TFTrue] Failed to upload the log file, send error\n");
+		AllMessage("\003[TFTruer] Failed to upload the log file, send error\n");
+		Msg("[TFTruer] Failed to upload the log file, send error\n");
+		engine->LogPrint("[TFTruer] Failed to upload the log file, send error\n");
 		closesocket(sock);
 		fclose(logFile);
 		return;
@@ -1320,9 +1320,9 @@ void CLogs::Upload(bool bRoundEnd)
 
 		if(send(sock, szContent2, numBytesRead, 0) <= 0)
 		{
-			AllMessage("\003[TFTrue] Failed to upload the log file, send error\n");
-			Msg("[TFTrue] Failed to upload the log file, send error\n");
-			engine->LogPrint("[TFTrue] Failed to upload the log file, send error\n");
+			AllMessage("\003[TFTruer] Failed to upload the log file, send error\n");
+			Msg("[TFTruer] Failed to upload the log file, send error\n");
+			engine->LogPrint("[TFTruer] Failed to upload the log file, send error\n");
 			closesocket(sock);
 			fclose(logFile);
 			return;
@@ -1337,9 +1337,9 @@ void CLogs::Upload(bool bRoundEnd)
 
 	if(send(sock, szContentEnd, strlen(szContentEnd), 0) <= 0) // Send the boundary end
 	{
-		AllMessage("\003[TFTrue] Failed to upload the log file, send error\n");
-		Msg("[TFTrue] Failed to upload the log file, send error\n");
-		engine->LogPrint("[TFTrue] Failed to upload the log file, send error\n");
+		AllMessage("\003[TFTruer] Failed to upload the log file, send error\n");
+		Msg("[TFTruer] Failed to upload the log file, send error\n");
+		engine->LogPrint("[TFTruer] Failed to upload the log file, send error\n");
 		closesocket(sock);
 		return;
 	}
@@ -1396,9 +1396,9 @@ void CLogs::Upload(bool bRoundEnd)
 		if ( !parsingSuccessful )
 		{
 			// report to the user the failure and their locations in the document.
-			AllMessage("\003[TFTrue] Failed to parse json\n");
-			Msg("[TFTrue] Failed to parse json\n");
-			engine->LogPrint("[TFTrue] Failed to parse json\n");
+			AllMessage("\003[TFTruer] Failed to parse json\n");
+			Msg("[TFTruer] Failed to parse json\n");
+			engine->LogPrint("[TFTruer] Failed to parse json\n");
 			return;
 		}
 
@@ -1418,9 +1418,9 @@ void CLogs::Upload(bool bRoundEnd)
 				m_iLastLogID = 0;
 
 			char Line[255];
-			sprintf(Line, "\003[TFTrue] The log is available here: %s. Type !log to view it.\n", m_szLastUploadedLog);
+			sprintf(Line, "\003[TFTruer] The log is available here: %s. Type !log to view it.\n", m_szLastUploadedLog);
 			AllMessage(Line);
-			Msg("[TFTrue] The log is available here: %s\n", m_szLastUploadedLog);
+			Msg("[TFTruer] The log is available here: %s\n", m_szLastUploadedLog);
 			engine->LogPrint(Line+1);
 		}
 		else
@@ -1429,18 +1429,18 @@ void CLogs::Upload(bool bRoundEnd)
 			const char* cszError = error.asCString();
 
 			char Line[255];
-			sprintf(Line, "\003[TFTrue] Failed to upload the log: %s\n", cszError);
+			sprintf(Line, "\003[TFTruer] Failed to upload the log: %s\n", cszError);
 			AllMessage(Line);
-			Msg("[TFTrue] Failed to upload the log: %s\n", cszError);
+			Msg("[TFTruer] Failed to upload the log: %s\n", cszError);
 			engine->LogPrint(Line+1);
 		}
 	}
 	else
 	{
 		char Line[255];
-		sprintf(Line, "\003[TFTrue] The log might have not been uploaded. HTTP error %d\n", iHTTPCode);
+		sprintf(Line, "\003[TFTruer] The log might have not been uploaded. HTTP error %d\n", iHTTPCode);
 		AllMessage(Line);
-		Msg("[TFTrue] The log might have not been uploaded. HTTP error %d\n", iHTTPCode);
+		Msg("[TFTruer] The log might have not been uploaded. HTTP error %d\n", iHTTPCode);
 		engine->LogPrint(Line+1);
 	}
 }
