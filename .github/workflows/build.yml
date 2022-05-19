@@ -3,10 +3,10 @@ name: Build for Windows & Linux
 
 on:
   push:
-    branches: [ main ]
+    branches: [ actions ]
     tags: [ "*.**" ]
   pull_request:
-    branches: [ main ]
+    branches: [ actions ]
 
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
@@ -46,7 +46,7 @@ jobs:
         overwrite: true
 
     - name: copy Binary
-      run: cp D:\a\TFTruer\TFTruer\build\Release\tftruer.dll D:\a\TFTruer\TFTruer\release\tftruer.dll
+      run: cp D:\a\TFTruer\TFTruer\build\RelWithDebInfo\tftruer.dll D:\a\TFTruer\TFTruer\release\tftruer.dll
 
     - name: Commit files
       run: |
