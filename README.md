@@ -6,6 +6,7 @@ A version of AnAkkk's TFTrue with misc bug fixes etc
 # Changes
 - TFTruer depends on a slightly modified version of the AlliedModders [hl2sdk-tf2](https://github.com/sapphonie/hl2sdk/tree/tftrue-tf2), a maintained version of Valve's hl2sdk tailored to TF2, as opposed to an outdated fork of Valve's hl2sdk-2013
 - TFTruer includes fixes for several nullptr deref crashes
+- TFTruer fixes the broken autohop functionality with `tftrue_bunnyhop 1`
 - TFTruer includes misc. fixes from the community, mostly taken from TFTrue's open PR list
 
 # Credits
