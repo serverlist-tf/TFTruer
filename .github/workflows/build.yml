@@ -54,8 +54,8 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git submodule deinit -f source-sdk-2013 || true
         git submodule deinit -f hl2sdk-tf2 || true
-	rm hl2sdk* -Rfv
-	rm source-sdk* -Rfv
+        # rm hl2sdk* -Rfv
+        # rm source-sdk* -Rfv
         git pull origin main -X theirs --prune --recurse-submodules --force
         git add .
         git commit -m "Update Windows binary" -a
@@ -109,8 +109,8 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git submodule deinit -f source-sdk-2013 || true
         git submodule deinit -f hl2sdk-tf2 || true
-        rm hl2sdk* -Rfv
-        rm source-sdk* -Rfv
+        # rm hl2sdk* -Rfv
+        # rm source-sdk* -Rfv
         git pull origin main -X theirs --prune --recurse-submodules --force
         git add .
         git commit -m "Update Linux binary" -a
