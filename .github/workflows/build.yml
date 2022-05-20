@@ -52,7 +52,7 @@ jobs:
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git pull -X theirs
+        git pull -X theirs --prune --recurse-submodules --force
         git add .
         git commit -m "Update Windows binary" -a
     - name: Push changes
@@ -103,7 +103,7 @@ jobs:
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git pull -X theirs
+        git pull -X theirs --prune --recurse-submodules --force
         git add .
         git commit -m "Update Linux binary" -a
     - name: Push changes
