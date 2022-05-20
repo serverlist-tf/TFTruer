@@ -29,6 +29,8 @@ ConVar tftrue_bunnyhop("tftrue_bunnyhop", "0", FCVAR_NOTIFY,
 	true, 0, true, 1,
 	&CBunnyHop::Callback);
 
+
+// duckjump offsets from https://github.com/Mikusch/tf-bhop
 bool CBunnyHop::Init(const CModuleScanner& ServerModule)
 {
 	char* os;
@@ -43,6 +45,8 @@ bool CBunnyHop::Init(const CModuleScanner& ServerModule)
 	CheckJumpButtonAddr                     = ServerModule.FindSymbol(
 	"_ZN15CTFGameMovement15CheckJumpButtonEv");
 
+	duckbuttonOffset 						= 0xD7;
+
 #else
 
 	os = (char*)"Windows";
@@ -53,6 +57,8 @@ bool CBunnyHop::Init(const CModuleScanner& ServerModule)
 	// sub_10412260:
 	CheckJumpButtonAddr                     = ServerModule.FindSignature((unsigned char *)
 	"\x55\x8B\xEC\x83\xEC\x0C\x57\x8B\xF9\x8B\x47\x04\x80\xB8\x54\x0A\x00\x00\x00", "xxxxxxxxxxxxxxxxxxx");
+
+	duckbuttonOffset 						= 0x1FB;
 
 #endif
 
@@ -127,15 +133,20 @@ void CBunnyHop::Callback( IConVar *var, const char *pOldValue, float flOldValue 
 
 		g_BunnyHop.PreventBunnyJumpingRoute.RouteFunction(g_BunnyHop.PreventBunnyJumpingAddr, (void*)CBunnyHop::PreventBunnyJumping);
 		g_BunnyHop.CheckJumpButtonRoute.RouteFunction(g_BunnyHop.CheckJumpButtonAddr, (void*)CBunnyHop::CheckJumpButton);
+
+		// jmp
+		PatchAddress((void*)g_BunnyHop.CheckJumpButtonAddr, duckbuttonOffset, 1, (unsigned char*)"\xEB");
 	}
-	else if(!v->GetBool() && flOldValue)
+	else if (!v->GetBool() && flOldValue)
 	{
 		((ConVar*)sv_airaccelerate.GetLinkedConVar())->Revert();
 		((ConVar*)sv_airaccelerate.GetLinkedConVar())->AddFlags(FCVAR_NOTIFY);
 
-
 		g_BunnyHop.PreventBunnyJumpingRoute.RestoreFunction();
 		g_BunnyHop.CheckJumpButtonRoute.RestoreFunction();
+
+		// jz
+		PatchAddress((void*)g_BunnyHop.CheckJumpButtonAddr, duckbuttonOffset, 1, (unsigned char*)"\x74");
 	}
 }
 
@@ -166,8 +177,6 @@ bool CBunnyHop::CheckJumpButton(CGameMovement *pMovement EDX2)
 				if ((flags & FL_ONGROUND) && (pMoveData->m_nButtons & IN_JUMP))
 				{
 					pMoveData->m_nOldButtons    &= ~(IN_JUMP | IN_DUCK);
-					// This doesn't work.
-					// pMoveData->m_nButtons       &= ~IN_DUCK;
 				}
 				if (g_BunnyHop.m_bSpeedMeter[icl])
 				{

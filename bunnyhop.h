@@ -25,9 +25,15 @@
 
 #include <bitset>
 
+
+int duckbuttonOffset = 0;
+
+
 class CBunnyHop: public IGameEventListener2
 {
 public:
+
+
 	bool Init(const CModuleScanner& ServerModule);
 	void OnJoinClass(edict_t *pEntity);
 	void OnPlayerDisconnect(edict_t *pEntity);
@@ -41,8 +47,8 @@ public:
 
 	static void PreventBunnyJumping();
 private:
-	void *PreventBunnyJumpingAddr = nullptr;
-	void *CheckJumpButtonAddr = nullptr;
+	void *PreventBunnyJumpingAddr   = nullptr;
+	void *CheckJumpButtonAddr       = nullptr;
 
 	std::bitset<MAX_PLAYERS+1> m_bSpeedMeter;
 
