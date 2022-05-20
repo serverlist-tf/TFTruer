@@ -129,4 +129,3 @@ In the chat, you can type !speedmeter [on/off] while tftrue_bunnyhop is enabled,
 - DemosTF support
 - Use SourceHook instead of FunctionRoute etc
 - Convert to Sourcemod extension to remove all the boilerplate
-
