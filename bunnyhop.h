@@ -25,12 +25,6 @@
 
 #include <bitset>
 
-class MyCGameMovement: public CGameMovement
-{
-public:
-	virtual bool	CheckJumpButton( void );
-};
-
 class CBunnyHop: public IGameEventListener2
 {
 public:
@@ -48,6 +42,7 @@ public:
 	static void PreventBunnyJumping();
 private:
 	void *PreventBunnyJumpingAddr = nullptr;
+	void *CheckJumpButtonAddr = nullptr;
 
 	std::bitset<MAX_PLAYERS+1> m_bSpeedMeter;
 

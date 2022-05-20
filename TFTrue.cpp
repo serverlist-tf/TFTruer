@@ -32,14 +32,14 @@
 #include "tournament.h"
 #include "editablecommands.h"
 
-// #ifdef DEBUG
-#define NO_AUTOUPDATE
-// #endif
+#ifdef DEBUG
+	#define NO_AUTOUPDATE
+#endif
 
 CTFTrue g_Plugin;
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(CTFTrue, IServerPluginCallbacks, INTERFACEVERSION_ISERVERPLUGINCALLBACKS, g_Plugin )
 
-ConVar tftrue_version("tftrue_version", "5.00", FCVAR_NOTIFY|FCVAR_CHEAT,
+ConVar tftrue_version("tftrue_version", "5.01", FCVAR_NOTIFY|FCVAR_CHEAT,
 	"Version of the plugin.",
         &CTFTrue::Version_Callback);
 ConVar tftrue_gamedesc("tftrue_gamedesc", "", FCVAR_NONE,
@@ -577,11 +577,11 @@ void CTFTrue::Say_Callback(ConCommand *pCmd, EDX const CCommand &args)
 	{
 		if(strcmp(Text, "!speedmeter on") == 0)
 		{
-			g_BunnyHop.SetSpeedMeter(g_Plugin.GetCommandIndex(), true);
+			g_BunnyHop.SetSpeedMeter(g_Plugin.GetCommandIndex()+1, true);
 		}
 		else if(strcmp(Text,"!speedmeter off") == 0)
 		{
-			g_BunnyHop.SetSpeedMeter(g_Plugin.GetCommandIndex(), false);
+			g_BunnyHop.SetSpeedMeter(g_Plugin.GetCommandIndex()+1, false);
 		}
 		else
 		{
@@ -589,9 +589,13 @@ void CTFTrue::Say_Callback(ConCommand *pCmd, EDX const CCommand &args)
 		}
 	}
 	else if(!strcmp(Text, "!log"))
+	{
 		g_Logs.OnLogCommand();
+	}
 	else
+	{
 		g_Plugin.ForwardCommand(pCmd, args);
+	}
 }
 
 void CTFTrue::ChangeLevel(IVEngineServer *pServer, EDX const char *s1, const char *s2)
